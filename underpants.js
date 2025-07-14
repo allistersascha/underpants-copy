@@ -5,6 +5,7 @@
 
 var _ = {};
 
+// template: _.key = function(){};
 
 /**
 * START OF OUR LIBRARY!
@@ -20,7 +21,9 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-
+_.identity = function(value){
+    return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -41,7 +44,17 @@ var _ = {};
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
+_.typeOf = function(value){
+    if (Array.isArray(value)){
+        return 'array';
+    }else if (value === null){
+        return "null";
+    }else if (value instanceof Date){
+        return "date";
+    }else{
+        return typeof value;
+    }
+}
 
 /** _.first
 * Arguments:
@@ -60,7 +73,15 @@ var _ = {};
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
+_.first = function (arr, num){
+    if ((Array.isArray(arr) === false) || (num < 0)){
+        return [];
+    }else if (num === Number.NaN || num === undefined){
+        return arr[0];
+    }else{
+        return arr.slice(0, num);
+    }
+}
 
 /** _.last
 * Arguments:
@@ -79,8 +100,17 @@ var _ = {};
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
-
-
+_.last = function (arr, num){
+    if ((Array.isArray(arr) === false) || (num < 0)){
+        return [];
+    }else if (num === Number.NaN || num === undefined){
+        return arr[arr.length-1];
+    }else if(num > arr.length){
+        return arr;
+    }else{
+        return arr.slice(arr.length-num, arr.length);
+    }
+}
 /** _.indexOf
 * Arguments:
 *   1) An array
@@ -97,6 +127,17 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function (arr, value){
+    if (arr.includes(value) === false){
+        return -1;
+    }else{
+        for (let i=0; i<arr.length; i++){
+            if (arr.at(i) === value){
+                return i;
+            }
+        }
+    }
+}
 
 /** _.contains
 * Arguments:
@@ -113,6 +154,9 @@ var _ = {};
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(arr, value){
+   return arr.includes(value) ? true : false;
+}
 
 /** _.each
 * Arguments:
@@ -130,6 +174,17 @@ var _ = {};
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = function(collection, func){
+    if (Array.isArray(collection)){
+        for (let i=0; i <collection.length; i++){
+        return func(collection[i], i, collection); 
+        }
+    }else{
+        for (keys in collection){
+            return func(Object.values(collection), Object.keys(collection), collection);
+        }
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -140,7 +195,15 @@ var _ = {};
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
-
+_.unique = function(arr){
+    const noDupes = [];
+    for (let i=0; i<arr.length; i++){
+        if (noDupes.includes(arr[i]) === false){
+            noDupes.push(arr[i]);
+        }
+    }
+    return noDupes;
+}
 
 /** _.filter
 * Arguments:
@@ -158,6 +221,16 @@ var _ = {};
 *   use _.each in your implementation
 */
 
+_.filter = function(arr, func){
+    let troof = [];
+    for (let i=0; i<arr.length; i++){
+        if (func(arr[i], i, arr)){
+            troof.push(arr[i]);
+        }
+    }
+    return troof;
+}
+
 
 /** _.reject
 * Arguments:
@@ -171,6 +244,16 @@ var _ = {};
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
+
+_.reject = function(arr, func){
+    let lies = [];
+    for (let i=0; i<arr.length; i++){
+        if (func(arr[i], i, arr) === false){
+            lies.push(arr[i]);
+        }
+    }
+    return lies;
+}
 
 
 /** _.partition
@@ -191,6 +274,17 @@ var _ = {};
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+_.partition = function(arr, func){
+    let twoArrs = [[],[]]
+    for (let i=0; i<arr.length; i++){
+        if (func(arr[i], i, arr)){
+            twoArrs[0].push(arr[i]);
+        }else{
+            twoArrs[1].push(arr[i]);
+        }
+    }
+    return twoArrs;
+}
 
 
 /** _.map
@@ -208,6 +302,22 @@ var _ = {};
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
+
+_.map = function(collection, func){
+    const newArr = [];
+    if (Array.isArray(collection)){
+        for (let i = 0; i < collection.length; i++){
+            newArr.push(func(collection[i], i, collection));
+        }
+    } else {
+        for (keys in collection){
+        newArr.push(func(collection.values(i)), collection.keys(i), collection);
+        }
+    }
+
+    return newArr;
+}
+
 
 
 /** _.pluck
