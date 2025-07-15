@@ -176,12 +176,13 @@ _.contains = function(arr, value){
 
 _.each = function(collection, func){
     if (Array.isArray(collection)){
+        let funcArr = [];
         for (let i=0; i <collection.length; i++){
-        return func(collection[i], i, collection); 
+        funcArr.push(func(collection[i], i, collection)); 
         }
     }else{
-        for (keys in collection){
-            return func(Object.values(collection), Object.keys(collection), collection);
+        for (const key in collection){
+            func(collection[key], key, collection);
         }
     }
 }
@@ -310,8 +311,9 @@ _.map = function(collection, func){
             newArr.push(func(collection[i], i, collection));
         }
     } else {
-        for (keys in collection){
-        newArr.push(func(collection.values(i)), collection.keys(i), collection);
+        let keys = Object.keys(collection);
+        for (let i=0; i<keys.length; i++){
+            newArr.push(func(Object.values(collection)), Object.keys(collection), collection);
         }
     }
 
@@ -352,6 +354,29 @@ _.map = function(collection, func){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+_.every = function(collect, func){
+    //let collect
+    //let func
+    if (Array.isArray(collect)){
+        if (func === undefined){ //if func not provided
+            for (let i=0; i<collect.length; i++){
+                //determine if current item is NOT true
+
+            }
+        }else{
+            for (let i=0; i<collect.length; i++){
+                //determine if result of callback on current item is NOT true
+            }
+        } 
+
+    }else{
+        if (func === undefined){ //if func not provided
+            //iterate thru object for truthy
+        }else {
+            //iterate thru object for func provided
+        }
+    }
+}
 
 
 /** _.some
