@@ -246,6 +246,7 @@ describe('Underpants', function() {
   });
 
   describe('every', function() {
+   
     var inputData = [2, 4, 6, 7, 8];
     var inputDataTruthy = [1, [], true, "a"];
     var inputDataFalsy = ["", 0, false, null];

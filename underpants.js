@@ -367,17 +367,15 @@ _.every = function(collect, func){
                 //determine if current item is NOT true
                 if (!collect[i]){
                     return false;
-                }else{
-                    return true;
                 }
             }
+            return true;
+          
         }else{
             for (let i=0; i<collect.length; i++){
                 //determine if result of callback on current item is NOT true
-                if (!func(collect, i)){
+                if (!func(collect[i], i, collect)){
                     return false;
-                }else{
-                    return true;
                 }
                 
             }
@@ -387,19 +385,16 @@ _.every = function(collect, func){
     }else{
         if (func === undefined){ //if func not provided
             for (const key in collect){
-                if (!collect.key){
+                if (!collect[key]){
                     return false;
-                }else{
-                    return true;
                 }
             }
+            return true;
         }else {
             //iterate thru object for func provided
             for (const key in collect){
-                if (!func(collect.key, key, collect)){
+                if (!func(collect[key], key, collect)){
                     return false;
-                }else{
-                    return true;
                 }
             }
             return true;
