@@ -333,11 +333,38 @@ _.map = function(collection, func){
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
-/*
-_.pluck = function (arr, prop){
-    let vals = [];
+
+_.pluck = (arr, prop) => { 
+    const vals = _.map(arr, function(current){
+        if (Object.hasOwn(current, [prop])){
+            return current[prop];
+        }
+    });
+   
+    /*
+    const vals = [];
+    for (let i=0; i<arr.length; i++){
+        if (Object.hasOwn(arr[i], prop)){
+            vals.push(arr[i][prop]);
+        }
+    }*/
+    return vals;
 }
-*/
+    /*
+    let vals = [];
+    for (let i=0; i<arr.length; i++){
+        _.map(arr[i], function (arr, prop){ 
+            
+                if (Object.hasOwn(arr[i], prop)){ 
+                    vals.push(arr[i].find(arr[i].prop));
+                    }
+                
+            });
+        }
+    return vals;
+    */
+
+
 /** _.every
 * Arguments:
 *   1) A collection
