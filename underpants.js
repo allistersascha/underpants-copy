@@ -313,7 +313,7 @@ _.map = function(collection, func){
     } else {
         let keys = Object.keys(collection);
         for (let i=0; i<keys.length; i++){
-            newArr.push(func(Object.values(collection)), Object.keys(collection), collection);
+            newArr.push(func(Object.values(collection)[i], keys[i], collection));
         }
     }
 
@@ -333,7 +333,11 @@ _.map = function(collection, func){
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
-
+/*
+_.pluck = function (arr, prop){
+    let vals = [];
+}
+*/
 /** _.every
 * Arguments:
 *   1) A collection
@@ -361,20 +365,45 @@ _.every = function(collect, func){
         if (func === undefined){ //if func not provided
             for (let i=0; i<collect.length; i++){
                 //determine if current item is NOT true
-
+                if (!collect[i]){
+                    return false;
+                }else{
+                    return true;
+                }
             }
         }else{
             for (let i=0; i<collect.length; i++){
                 //determine if result of callback on current item is NOT true
+                if (!func(collect, i)){
+                    return false;
+                }else{
+                    return true;
+                }
+                
             }
+            return true;
         } 
 
     }else{
         if (func === undefined){ //if func not provided
-            //iterate thru object for truthy
+            for (const key in collect){
+                if (!collect.key){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
         }else {
             //iterate thru object for func provided
-        }
+            for (const key in collect){
+                if (!func(collect.key, key, collect)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            return true;
+        }   
     }
 }
 
