@@ -450,6 +450,47 @@ _.every = function(collect, func){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+_.some = function (collect, func){
+    if (Array.isArray(collect)){
+        if (func === undefined){ //if func not provided
+            for (let i=0; i<collect.length; i++){
+                //determine if current item is NOT true
+                if (collect[i]){
+                    return true;
+                }
+            }
+            return false;
+          
+        }else{
+            for (let i=0; i<collect.length; i++){
+                //determine if result of callback on current item is NOT true
+                if (func(collect[i], i, collect)){
+                    return true;
+                }
+                
+            }
+            return false;
+        } 
+
+    }else{
+        if (func === undefined){ //if func not provided
+            for (const key in collect){
+                if (collect[key]){
+                    return true;
+                }
+            }
+            return false;
+        }else {
+            //iterate thru object for func provided
+            for (const key in collect){
+                if (func(collect[key], key, collect)){
+                    return true;
+                }
+            }
+            return false;
+        }   
+    }
+}
 
 
 /** _.reduce
