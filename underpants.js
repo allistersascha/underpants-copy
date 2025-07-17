@@ -511,6 +511,56 @@ _.some = function (collect, func){
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
+_.reduce = function (arr, func, seed){
+    // array.reduce ((accumulator, currentValue) => (accumulator + currentValue OR whataever callback func), initialValue);
+    //initial value is seed
+/*
+
+*/
+    let seedy;
+    
+        if (seed === undefined){
+            seedy = arr[0];
+            for (let i=1; i<arr.length; i++){
+                seedy = func(seedy, arr[i], i);
+            }
+        }else{
+            seedy = seed;
+            for (let i=0; i<arr.length; i++){
+                seedy = func(seedy, arr[i], i);
+            }
+        }
+   return seedy;
+}
+
+/* reduce notes:
+    //empty array to push into/return the last value of at the end
+    const seedy = [];
+    //if no seed, use the first item in the array
+    if (seed === undefined){
+        seed = arr[0];
+        for (let i=seed; i<arr.length; i++){
+            //make its own var so you can push it AND reuse it
+            let prev = func(seed, arr[i], i){
+
+            }
+        }
+    }
+
+    return seedy[seedy.length-1];
+    //loop thru the array
+    //but don't loop over 0 twide!
+    /*
+    for (let i=0; i<arr.length; i++){
+        //do i have to recursive the 'previous' var to make this work!?!
+        let previous = func(seed, arr[i], i);
+        seedy.push(previous);
+        seedy.push(func(previous, arr[i], i));
+        }
+        */
+    
+    
+
 
 
 /** _.extend
