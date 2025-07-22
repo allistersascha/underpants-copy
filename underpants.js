@@ -577,7 +577,20 @@ _.reduce = function (arr, func, seed){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-
+_.extend = function(object, ...objects){
+    let argArray = Array.from(arguments);
+    for (let i=0; i<argArray.length; i++){
+        console.log(object);
+        Object.assign(object, argArray[i]);
+        console.log(object);
+        console.log(i);
+        //console.log(Object.keys(newObj));
+        //console.log(Object.values(newObj));
+    }
+    //console.log(argArray);
+   // const newObj = Object.assign({}, arguments); //object made from the other objects
+    return object; //object
+}
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
